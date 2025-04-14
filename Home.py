@@ -1,5 +1,6 @@
 
 import streamlit as st
+from utils import afficher_titre
 import pandas as pd
 import plotly.express as px
 import time
@@ -45,7 +46,7 @@ elif fidelite == "Non":
 df = df[df["Gender"].isin(genre) & df["Device_Used_for_Shopping"].isin(appareil)]
 
 # Titre de la page
-st.markdown("""<div style='background-color:#2C3E50; padding:2rem; border-radius:16px; color:white; text-align:center; margin-bottom:2rem; border:2px solid #2C3E50; box-shadow:0 8px 20px rgba(0,0,0,0.2); font-size:2rem;'><h1>📊 Analyse Comportementale – E-commerce</h1></div>""", unsafe_allow_html=True)
+
 
 # KPI Cards animées
 col1, col2, col3 = st.columns(3)
