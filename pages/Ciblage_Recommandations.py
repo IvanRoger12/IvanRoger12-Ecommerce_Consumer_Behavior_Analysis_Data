@@ -1,5 +1,6 @@
 
 import streamlit as st
+from utils import afficher_titre
 import pandas as pd
 import plotly.express as px
 
