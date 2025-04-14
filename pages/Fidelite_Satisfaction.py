@@ -17,6 +17,27 @@ def load_data():
 
 df = load_data()
 
+# Filtres latéraux essentiels
+with st.sidebar:
+    st.markdown("## 🔍 Filtres")
+
+    # Genre
+    st.markdown("### Genre")
+    genre_options = df['Gender'].dropna().unique().tolist()
+    selected_genres = st.multiselect("Genre", genre_options, default=genre_options)
+
+    # Appareil utilisé
+    st.markdown("### Appareil")
+    device_options = df['Device_Used_for_Shopping'].dropna().unique().tolist()
+    selected_devices = st.multiselect("Appareil utilisé", device_options, default=device_options)
+
+# Application des filtres
+df = df[
+    df['Gender'].isin(selected_genres) &
+    df['Device_Used_for_Shopping'].isin(selected_devices)
+]
+
+
 st.markdown('''
 <style>
 .title-container {
