@@ -16,8 +16,23 @@ def load_data():
 
 df = load_data()
 
-with open("styles.css") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+st.markdown('''
+<style>
+.title-container {
+    background-color: #2C3E50;
+    padding: 2rem;
+    border-radius: 16px;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+    border: 2px solid #2C3E50;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    font-size: 2rem;
+}
+</style>
+''', unsafe_allow_html=True)
+
+
 
 st.title("🎯 Ciblage & Recommandations")
 
