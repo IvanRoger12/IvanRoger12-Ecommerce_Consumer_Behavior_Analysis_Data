@@ -66,7 +66,16 @@ elif fidelite == "Non":
 df = df[df["Gender"].isin(genre) & df["Device_Used_for_Shopping"].isin(appareil)]
 
 # Titre de la page
-st.markdown("<div class='title-container'><h1>📊 Tableau de bord – Accueil</h1></div>", unsafe_allow_html=True)
+
+st.markdown("""
+    <div class='title-container title-dashboard'>
+        <div class='title-icon'>
+            <span>📊</span>
+        </div>
+        <h1>Analyse Comportementale – E-commerce</h1>
+    </div>
+""", unsafe_allow_html=True)
+
 
 # KPI Cards animées
 col1, col2, col3 = st.columns(3)
