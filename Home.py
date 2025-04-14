@@ -64,3 +64,26 @@ st.plotly_chart(fig_anim, use_container_width=True)
 st.markdown("---")
 st.write("👋 Merci de tester ce dashboard ! Vous pouvez explorer les onglets pour plus d’analyses.")
 
+
+
+
+# Graphique 1 : Méthodes de paiement
+st.subheader("💳 Méthodes de paiement")
+payment_df = df["Payment_Method"].value_counts(normalize=True).reset_index()
+payment_df.columns = ["Méthode", "Proportion"]
+fig1 = px.pie(payment_df, names="Méthode", values="Proportion", title="Répartition des Méthodes de Paiement")
+st.plotly_chart(fig1, use_container_width=True)
+
+# Graphique 2 : Satisfaction par appareil
+st.subheader("📱 Satisfaction par appareil")
+fig2 = px.box(df, x="Device_Used_for_Shopping", y="Customer_Satisfaction", color="Device_Used_for_Shopping",
+              title="Satisfaction Client par Appareil")
+st.plotly_chart(fig2, use_container_width=True)
+
+# Graphique 3 : Achats par mois
+st.subheader("📈 Achats par mois")
+monthly_df = df.groupby("Month")["Purchase_Amount"].sum().reset_index()
+fig3 = px.line(monthly_df, x="Month", y="Purchase_Amount", markers=True,
+               title="Achats Mensuels", labels={"Purchase_Amount": "Montant (€)"})
+fig3.update_traces(fill="tozeroy")
+st.plotly_chart(fig3, use_container_width=True)
