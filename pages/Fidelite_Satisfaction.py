@@ -5,7 +5,6 @@ import plotly.express as px
 
 st.set_page_config(page_title="👑 Fidélité & Satisfaction", layout="wide")
 
-# Chargement et préparation des données
 @st.cache_data
 def load_data():
     df = pd.read_csv("Ecommerce_Consumer_Behavior_Analysis_Data.csv")
@@ -16,9 +15,8 @@ def load_data():
 
 df = load_data()
 
-st.title("👑 Fidélité & Satisfaction Client")
+st.markdown("<div class='title-container'><h1>👑 Fidélité & Satisfaction Client</h1></div>", unsafe_allow_html=True)
 
-# KPIs
 col1, col2, col3 = st.columns(3)
 col1.metric("Taux de fidélité", f"{df['Customer_Loyalty_Program_Member'].mean()*100:.1f}%")
 col2.metric("Satisfaction moyenne", f"{df['Customer_Satisfaction'].mean():.1f} / 10")
@@ -26,12 +24,10 @@ col3.metric("Achats fidélité", f"{df[df['Customer_Loyalty_Program_Member']==Tr
 
 st.markdown("---")
 
-# Graphique 1 : Satisfaction par catégorie
 st.subheader("📦 Satisfaction par catégorie d'achat")
 fig = px.box(df, x="Purchase_Category", y="Customer_Satisfaction", color="Purchase_Category")
 st.plotly_chart(fig, use_container_width=True)
 
-# Graphique 2 : Répartition des membres fidélité
 st.subheader("👥 Répartition des clients fidèles vs non fidèles")
 fidelite_counts = df['Customer_Loyalty_Program_Member'].value_counts().reset_index()
 fidelite_counts.columns = ['Fidèle', 'Nombre']
@@ -40,7 +36,6 @@ fidelite_counts['Fidèle'] = fidelite_counts['Fidèle'].map({True: "Membre", Fal
 fig2 = px.pie(fidelite_counts, values='Nombre', names='Fidèle', hole=0.5, color_discrete_sequence=px.colors.sequential.RdBu)
 st.plotly_chart(fig2, use_container_width=True)
 
-# Graphique 3 : Satisfaction selon fidélité
 st.subheader("💬 Satisfaction selon le statut fidélité")
 fig3 = px.histogram(df, x="Customer_Satisfaction", color="Customer_Loyalty_Program_Member",
                     barmode='overlay', nbins=10,
