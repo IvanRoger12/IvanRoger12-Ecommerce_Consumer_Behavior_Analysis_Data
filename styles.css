@@ -11,7 +11,7 @@ html, body, [class*="css"] {
 
 /* Titres */
 .title-container {
-    background: linear-gradient(90deg, #2C3E50 0%, #4C6793 100%);
+    background-color: #2C3E50;
     padding: 2rem;
     border-radius: 12px;
     margin-bottom: 2rem;
@@ -24,12 +24,13 @@ html, body, [class*="css"] {
     background-color: white;
     padding: 1.5rem;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 2px solid #2C3E50;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .metric-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 .metric-value {
     font-size: 28px;
