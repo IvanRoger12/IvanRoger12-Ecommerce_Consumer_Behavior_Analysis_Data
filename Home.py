@@ -37,20 +37,17 @@ with st.sidebar:
 
     # Genre
     genre_options = df['Gender'].dropna().unique().tolist()
-    selected_genres = st.multiselect("Genre", genre_options, default=genre_options, key="genre_filter")
+    
 
     # Appareil utilisé
     device_options = df['Device_Used_for_Shopping'].dropna().unique().tolist()
-    selected_devices = st.multiselect("Appareil utilisé", device_options, default=device_options, key="device_filter")
+    
 
 # Application des filtres
 df = df[
     df['Gender'].isin(selected_genres) &
     df['Device_Used_for_Shopping'].isin(selected_devices)
 ]
-
-
-
 
 # Filtres dans la sidebar
 st.sidebar.header("🔎 Filtres")
@@ -69,13 +66,10 @@ df = df[df["Gender"].isin(genre) & df["Device_Used_for_Shopping"].isin(appareil)
 
 st.markdown("""
     <div class='title-container title-dashboard'>
-        <div class='title-icon'>
-            <span>📊</span>
-        </div>
+        
         <h1>Analyse Comportementale – E-commerce</h1>
     </div>
 """, unsafe_allow_html=True)
-
 
 # KPI Cards animées
 col1, col2, col3 = st.columns(3)
