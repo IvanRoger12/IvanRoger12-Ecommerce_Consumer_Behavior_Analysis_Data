@@ -41,6 +41,7 @@ with st.spinner("📦 Chargement des données..."):
 
 
 
+
 # Filtres latéraux essentiels
 with st.sidebar:
     st.markdown("## 🔍 Filtres")
@@ -50,11 +51,6 @@ with st.sidebar:
     genre_options = df['Gender'].dropna().unique().tolist()
     selected_genres = st.multiselect("Genre", genre_options, default=genre_options)
 
-    # Lieu
-    st.markdown("### Localisation")
-    location_options = df['Location'].dropna().unique().tolist()
-    selected_locations = st.multiselect("Localisation", location_options, default=location_options)
-
     # Appareil utilisé
     st.markdown("### Appareil")
     device_options = df['Device_Used_for_Shopping'].dropna().unique().tolist()
@@ -63,7 +59,6 @@ with st.sidebar:
 # Application des filtres
 df = df[
     df['Gender'].isin(selected_genres) &
-    df['Location'].isin(selected_locations) &
     df['Device_Used_for_Shopping'].isin(selected_devices)
 ]
 
