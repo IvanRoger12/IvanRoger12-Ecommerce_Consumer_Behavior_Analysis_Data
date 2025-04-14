@@ -39,33 +39,10 @@ with st.spinner("📦 Chargement des données..."):
         my_bar.progress(percent_complete + 1)
     df = load_data()
 
-
-
-
-# Filtres latéraux essentiels
-with st.sidebar:
-    st.markdown("## 🔍 Filtres")
-
-    # Genre
-    st.markdown("### Genre")
-    genre_options = df['Gender'].dropna().unique().tolist()
-    selected_genres = st.multiselect("Genre", genre_options, default=genre_options)
-
-    # Appareil utilisé
-    st.markdown("### Appareil")
-    device_options = df['Device_Used_for_Shopping'].dropna().unique().tolist()
-    selected_devices = st.multiselect("Appareil utilisé", device_options, default=device_options)
-
-# Application des filtres
-df = df[
-    df['Gender'].isin(selected_genres) &
-    df['Device_Used_for_Shopping'].isin(selected_devices)
-]
-
-
 # KPIs
 
-# Cartes de résumé stylisées
+
+# KPIs Encadrés
 col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown(f"""
@@ -76,20 +53,23 @@ with col1:
     """, unsafe_allow_html=True)
 
 with col2:
+    panier_moyen = df['Purchase_Amount'].mean()
     st.markdown(f"""
     <div style='border: 2px solid #2C3E50; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;'>
-        <div style='font-size: 2rem; font-weight: bold; color: #2C3E50;'>{df['Customer_Satisfaction'].mean():.1f} / 10</div>
-        <div style='color: grey;'>Satisfaction moyenne</div>
+        <div style='font-size: 2rem; font-weight: bold; color: #2C3E50;'>{panier_moyen:,.0f} €</div>
+        <div style='color: grey;'>Panier moyen</div>
     </div>
     """, unsafe_allow_html=True)
 
 with col3:
+    taux_conversion = df[df['Purchase_Amount'] > 0]['Customer_ID'].nunique() / df['Customer_ID'].nunique() * 100
     st.markdown(f"""
     <div style='border: 2px solid #2C3E50; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;'>
-        <div style='font-size: 2rem; font-weight: bold; color: #2C3E50;'>{df["Customer_Loyalty_Program_Member"].mean() * 100:.1f} %</div>
-        <div style='color: grey;'>Clients Fidèles</div>
+        <div style='font-size: 2rem; font-weight: bold; color: #2C3E50;'>{taux_conversion:.1f} %</div>
+        <div style='color: grey;'>Taux de conversion</div>
     </div>
     """, unsafe_allow_html=True)
+
 
 
 st.markdown("---")
@@ -133,3 +113,6 @@ st.plotly_chart(fig3, use_container_width=True)
 
 
 st.markdown('👋 Merci de tester ce dashboard ! Vous pouvez explorer les onglets pour plus d’analyses.')
+# Export des données
+st.markdown("---")
+st.download_button("📥 Télécharger les données filtrées", data=df.to_csv(index=False), file_name="donnees_filtrees.csv", mime="text/csv")
