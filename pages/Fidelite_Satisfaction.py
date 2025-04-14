@@ -15,7 +15,9 @@ def load_data():
 
 df = load_data()
 
+
 st.markdown("<div class='title-container'><h1>👑 Fidélité & Satisfaction Client</h1></div>", unsafe_allow_html=True)
+
 
 col1, col2, col3 = st.columns(3)
 col1.metric("Taux de fidélité", f"{df['Customer_Loyalty_Program_Member'].mean()*100:.1f}%")

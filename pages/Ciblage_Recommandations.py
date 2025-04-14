@@ -15,7 +15,9 @@ def load_data():
 
 df = load_data()
 
+
 st.markdown("<div class='title-container'><h1>🎯 Ciblage & Recommandations</h1></div>", unsafe_allow_html=True)
+
 
 # Score simple basé sur achat + satisfaction
 df['EngagementScore'] = (df['Purchase_Amount'] / df['Purchase_Amount'].max()) * 0.6 + (df['Customer_Satisfaction'] / 10) * 0.4
