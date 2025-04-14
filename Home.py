@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import time
 
 st.set_page_config(
     page_title="Accueil – SmartClient",
@@ -13,15 +14,22 @@ st.set_page_config(
 with open("styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
+# Barre de progression pendant le chargement
 @st.cache_data
 def load_data():
     df = pd.read_csv("Ecommerce_Consumer_Behavior_Analysis_Data.csv")
     df['Purchase_Amount'] = df['Purchase_Amount'].replace('[\$,]', '', regex=True).astype(float)
     df['Time_of_Purchase'] = pd.to_datetime(df['Time_of_Purchase'], errors='coerce')
     df['Month'] = df['Time_of_Purchase'].dt.strftime('%b %Y')
+    df['YearMonth'] = df['Time_of_Purchase'].dt.to_period('M').astype(str)
     return df
 
-df = load_data()
+with st.spinner("📦 Chargement des données..."):
+    my_bar = st.progress(0)
+    for percent_complete in range(100):
+        time.sleep(0.005)
+        my_bar.progress(percent_complete + 1)
+    df = load_data()
 
 # Filtres dans la sidebar
 st.sidebar.header("🔎 Filtres")
@@ -69,12 +77,17 @@ with col3:
 
 st.markdown("---")
 
-# Graphiques
-st.subheader("📈 Achats par mois")
-monthly = df.groupby("Month")["Purchase_Amount"].sum().reset_index()
-fig1 = px.area(monthly, x="Month", y="Purchase_Amount", title="Achats Mensuels", labels={"Purchase_Amount": "Montant (€)"})
-st.plotly_chart(fig1, use_container_width=True)
+# Graphique évolutif par mois
+st.subheader("🎞️ Animation des achats par région (évolution mensuelle)")
+df_anim = df.groupby(['YearMonth', 'Location'])['Purchase_Amount'].sum().reset_index()
+fig_anim = px.bar(df_anim, x='Location', y='Purchase_Amount',
+                  animation_frame='YearMonth',
+                  range_y=[0, df_anim['Purchase_Amount'].max()*1.1],
+                  title="Évolution mensuelle des achats par région",
+                  labels={'Purchase_Amount': 'Montant (€)', 'Location': 'Région'})
+st.plotly_chart(fig_anim, use_container_width=True)
 
+# Autres graphiques classiques
 st.subheader("📱 Satisfaction par appareil")
 fig2 = px.box(df, x="Device_Used_for_Shopping", y="Customer_Satisfaction", color="Device_Used_for_Shopping")
 st.plotly_chart(fig2, use_container_width=True)
