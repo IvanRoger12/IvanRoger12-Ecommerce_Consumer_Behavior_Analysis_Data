@@ -18,6 +18,23 @@ with open("styles.css") as f:
 @st.cache_data
 def load_data():
     df = pd.read_csv("Ecommerce_Consumer_Behavior_Analysis_Data.csv")
+
+# Filtres latéraux
+with st.sidebar:
+    st.markdown("## 🔍 Filtres")
+
+    genre_options = df['Gender'].dropna().unique().tolist()
+    selected_genres = st.multiselect("Genre", genre_options, default=genre_options, key="genre_filter")
+
+    device_options = df['Device_Used_for_Shopping'].dropna().unique().tolist()
+    selected_devices = st.multiselect("Appareil utilisé", device_options, default=device_options, key="device_filter")
+
+# Application des filtres
+df = df[
+    df['Gender'].isin(selected_genres) &
+    df['Device_Used_for_Shopping'].isin(selected_devices)
+]
+
     df['Purchase_Amount'] = df['Purchase_Amount'].replace('[\$,]', '', regex=True).astype(float)
     df['Time_of_Purchase'] = pd.to_datetime(df['Time_of_Purchase'], errors='coerce')
     df['Month'] = df['Time_of_Purchase'].dt.strftime('%b %Y')
@@ -31,23 +48,6 @@ with st.spinner("📦 Chargement des données..."):
         my_bar.progress(percent_complete + 1)
     df = load_data()
 
-# Filtres latéraux essentiels
-with st.sidebar:
-    st.markdown("## 🔍 Filtres")
-
-    # Genre
-    genre_options = df['Gender'].dropna().unique().tolist()
-    
-
-    # Appareil utilisé
-    device_options = df['Device_Used_for_Shopping'].dropna().unique().tolist()
-    
-
-# Application des filtres
-df = df[
-    df['Gender'].isin(selected_genres) &
-    df['Device_Used_for_Shopping'].isin(selected_devices)
-]
 
 # Filtres dans la sidebar
 st.sidebar.header("🔎 Filtres")
