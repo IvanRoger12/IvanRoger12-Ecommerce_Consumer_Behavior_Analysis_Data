@@ -75,3 +75,24 @@ st.plotly_chart(fig2, use_container_width=True)
 
 st.markdown("---")
 st.markdown("<center>🚀 Des actions concrètes basées sur l'engagement et la satisfaction</center>", unsafe_allow_html=True)
+
+
+st.markdown("---")
+st.subheader("📊 Répartition des segments par genre")
+fig_genre = px.histogram(df, x="Gender", color="Segment", barmode="group")
+st.plotly_chart(fig_genre, use_container_width=True)
+
+st.subheader("🎯 Taux d'utilisation des promotions par segment")
+promo_segment = df.groupby("Segment")["Discount_Used"].mean().reset_index()
+promo_segment["Discount_Used"] = promo_segment["Discount_Used"] * 100
+fig_promo = px.bar(promo_segment, x="Segment", y="Discount_Used", text_auto=True,
+                   labels={"Discount_Used": "Utilisation des promotions (%)"})
+st.plotly_chart(fig_promo, use_container_width=True)
+
+st.subheader("⏱️ Délai moyen entre achats par segment")
+df_sorted = df.sort_values(["Customer_ID", "Time_of_Purchase"])
+df_sorted["TimeDiff"] = df_sorted.groupby("Customer_ID")["Time_of_Purchase"].diff().dt.days
+moyenne_deltas = df_sorted.groupby("Segment")["TimeDiff"].mean().reset_index()
+fig_delta = px.bar(moyenne_deltas, x="Segment", y="TimeDiff", text_auto=True,
+                   labels={"TimeDiff": "Délai moyen (jours)"})
+st.plotly_chart(fig_delta, use_container_width=True)
