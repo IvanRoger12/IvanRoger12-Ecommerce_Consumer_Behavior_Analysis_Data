@@ -1,108 +1,271 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 html, body, [class*="css"] {
     font-family: 'Poppins', sans-serif;
+    color: #2C3E50;
+}
+
+body {
+    background-color: #f8f9fd;
+    line-height: 1.6;
 }
 
 .main {
     background-color: #f8f9fd;
+    padding: 1.5rem;
 }
 
-/* Titres */
+/* Système d'en-têtes harmonisés */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    color: #2C3E50;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: 2.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #2C3E50 0%, #3498DB 100%);
+    border-radius: 2px;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #34495E;
+}
+
+h3 {
+    font-size: 1.75rem;
+    color: #2980B9;
+}
+
+h4 {
+    font-size: 1.4rem;
+    color: #3498DB;
+}
+
+h5 {
+    font-size: 1.2rem;
+    color: #2C3E50;
+}
+
+h6 {
+    font-size: 1rem;
+    color: #7F8C8D;
+    font-weight: 500;
+}
+
+/* Titres avec conteneur */
 .title-container {
-    background-color: #2C3E50;
-    padding: 2rem;
+    background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+    padding: 2.2rem;
     border-radius: 16px;
     color: white;
     text-align: center;
-    margin-bottom: 2rem;
-    border: 2px solid #2C3E50;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    border: none;
+    box-shadow: 0 10px 25px rgba(44, 62, 80, 0.25);
+    position: relative;
+    overflow: hidden;
 }
 
-/* Cartes KPI */
+.title-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #3498DB 0%, #2ECC71 100%);
+}
+
+.title-container h1, .title-container h2 {
+    color: white;
+    margin: 0;
+    font-size: 2.2rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.title-container h1::after {
+    display: none;
+}
+
+/* Cartes KPI améliorées */
 .metric-card {
     background-color: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 1.8rem;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
+.metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #2C3E50 0%, #3498DB 100%);
+}
+
 .metric-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-7px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
 }
+
 .metric-value {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 700;
     color: #2C3E50;
+    letter-spacing: -0.02em;
 }
+
 .metric-label {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: #7F8C8D;
-    margin-top: 5px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-/* Boîtes de graphique */
+/* Boîtes de graphique améliorées */
 .chart-container {
     background-color: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    margin-bottom: 1.5rem;
+    padding: 1.8rem;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* Cartes clients */
+.chart-container h3, .chart-container h4 {
+    margin-top: 0;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid #ecf0f1;
+    margin-bottom: 1.2rem;
+}
+
+/* Cartes clients améliorées */
 .client-card {
     background: white;
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.03);
 }
+
 .client-card:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+    transform: translateY(-3px);
 }
+
 .segment-badge {
-    padding: 5px 10px;
+    padding: 6px 12px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
     display: inline-block;
-    margin-top: 5px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
-.premium { background-color: #F1C40F; color: #34495E; }
-.standard { background-color: #3498DB; color: white; }
-.basic { background-color: #95A5A6; color: white; }
-.at-risk { background-color: #E74C3C; color: white; }
+
+.premium { 
+    background-color: rgba(241, 196, 15, 0.2);
+    color: #B7950B;
+}
+
+.standard { 
+    background-color: rgba(52, 152, 219, 0.2);
+    color: #2874A6;
+}
+
+.basic { 
+    background-color: rgba(149, 165, 166, 0.2);
+    color: #616A6B;
+}
+
+.at-risk { 
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #B03A2E;
+}
 
 .loyalty-tier {
     display: flex;
     align-items: center;
-    margin-top: 10px;
-}
-.loyalty-icon {
-    font-size: 18px;
-    margin-right: 5px;
+    margin-top: 12px;
 }
 
-/* Pied de page */
+.loyalty-icon {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+/* Pied de page amélioré */
 .footer {
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
     text-align: center;
     color: #7F8C8D;
-    font-size: 12px;
-    margin-top: 2rem;
+    font-size: 13px;
+    margin-top: 3rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* Animation */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { 
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
 .animate-fadeIn {
-    animation: fadeIn 1s ease;
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.7rem;
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+    
+    .title-container {
+        padding: 1.8rem;
+    }
+    
+    .metric-card, .chart-container, .client-card {
+        padding: 1.2rem;
+    }
 }
