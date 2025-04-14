@@ -1,14 +1,15 @@
-
 import streamlit as st
-
-# Injection du style CSS personnalisé
-with open("styles.css") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
 import pandas as pd
 import plotly.express as px
 
 st.set_page_config(page_title="👑 Fidélité & Satisfaction", layout="wide")
+with open("styles.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
+
+# Injection du style CSS personnalisé
+
 
 # Chargement et préparation des données
 @st.cache_data
@@ -38,7 +39,6 @@ df = df[
     df['Gender'].isin(selected_genres) &
     df['Device_Used_for_Shopping'].isin(selected_devices)
 ]
-
 
 st.title("👑 Fidélité & Satisfaction Client")
 
