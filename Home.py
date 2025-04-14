@@ -12,7 +12,27 @@ st.set_page_config(
 
 # Appliquer le style CSS personnalisé
 with open("styles.css") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    
+# Section KPI encadrée
+st.markdown("""
+<div style="display: flex; justify-content: space-around; margin-top: 30px; margin-bottom: 30px;">
+    <div style="background-color: #f9f9f9; padding: 25px; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); width: 25%; text-align: center;">
+        <h2 style="color: #20263a;">275,064 €</h2>
+        <p style="color: gray;">Total des achats</p>
+    </div>
+    <div style="background-color: #f9f9f9; padding: 25px; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); width: 25%; text-align: center;">
+        <h2 style="color: #20263a;">5.4 / 10</h2>
+        <p style="color: gray;">Satisfaction moyenne</p>
+    </div>
+    <div style="background-color: #f9f9f9; padding: 25px; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); width: 25%; text-align: center;">
+        <h2 style="color: #20263a;">49.1 %</h2>
+        <p style="color: gray;">Clients Fidèles</p>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+
+st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Barre de progression pendant le chargement
 @st.cache_data
