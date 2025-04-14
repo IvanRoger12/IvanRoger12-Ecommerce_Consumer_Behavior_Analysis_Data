@@ -23,7 +23,7 @@ def load_data():
 
 df = load_data()
 
-# Sidebar filtres
+# Filtres dans la sidebar
 st.sidebar.header("🔎 Filtres")
 genre = st.sidebar.multiselect("Genre", df["Gender"].unique(), default=list(df["Gender"].unique()))
 appareil = st.sidebar.multiselect("Appareil utilisé", df["Device_Used_for_Shopping"].unique(), default=list(df["Device_Used_for_Shopping"].unique()))
@@ -36,40 +36,50 @@ elif fidelite == "Non":
 
 df = df[df["Gender"].isin(genre) & df["Device_Used_for_Shopping"].isin(appareil)]
 
-# Titre avec style
+# Titre de la page
 st.markdown("<div class='title-container'><h1>📊 Tableau de bord – Accueil</h1></div>", unsafe_allow_html=True)
 
-# Cartes KPI
+# KPI Cards avec HTML interprété
 col1, col2, col3 = st.columns(3)
+
 with col1:
-    st.markdown('<div class="metric-card">', unsafe_allow_html=True)
-    st.markdown('<div class="metric-value">{:,.0f} €</div>'.format(df['Purchase_Amount'].sum()))
-    st.markdown('<div class="metric-label">Total Achats</div></div>', unsafe_allow_html=True)
+    st.markdown(f'''
+        <div class="metric-card">
+            <div class="metric-value">{df['Purchase_Amount'].sum():,.0f} €</div>
+            <div class="metric-label">Total des achats</div>
+        </div>
+    ''', unsafe_allow_html=True)
 
 with col2:
-    st.markdown('<div class="metric-card">', unsafe_allow_html=True)
-    st.markdown('<div class="metric-value">{:.1f} / 10</div>'.format(df['Customer_Satisfaction'].mean()))
-    st.markdown('<div class="metric-label">Satisfaction Moyenne</div></div>', unsafe_allow_html=True)
+    st.markdown(f'''
+        <div class="metric-card">
+            <div class="metric-value">{df['Customer_Satisfaction'].mean():.1f} / 10</div>
+            <div class="metric-label">Satisfaction moyenne</div>
+        </div>
+    ''', unsafe_allow_html=True)
 
 with col3:
-    st.markdown('<div class="metric-card">', unsafe_allow_html=True)
     taux_fidelite = df["Customer_Loyalty_Program_Member"].mean() * 100
-    st.markdown('<div class="metric-value">{:.1f} %</div>'.format(taux_fidelite))
-    st.markdown('<div class="metric-label">Clients Fidèles</div></div>', unsafe_allow_html=True)
+    st.markdown(f'''
+        <div class="metric-card">
+            <div class="metric-value">{taux_fidelite:.1f} %</div>
+            <div class="metric-label">Clients Fidèles</div>
+        </div>
+    ''', unsafe_allow_html=True)
 
 st.markdown("---")
 
 # Graphiques
-st.subheader("📈 Achats par Mois")
+st.subheader("📈 Achats par mois")
 monthly = df.groupby("Month")["Purchase_Amount"].sum().reset_index()
 fig1 = px.area(monthly, x="Month", y="Purchase_Amount", title="Achats Mensuels", labels={"Purchase_Amount": "Montant (€)"})
 st.plotly_chart(fig1, use_container_width=True)
 
-st.subheader("📱 Satisfaction par Appareil")
+st.subheader("📱 Satisfaction par appareil")
 fig2 = px.box(df, x="Device_Used_for_Shopping", y="Customer_Satisfaction", color="Device_Used_for_Shopping")
 st.plotly_chart(fig2, use_container_width=True)
 
-st.subheader("💳 Méthodes de Paiement")
+st.subheader("💳 Méthodes de paiement")
 fig3 = px.pie(df, names="Payment_Method", title="Répartition des Méthodes de Paiement")
 st.plotly_chart(fig3, use_container_width=True)
 
