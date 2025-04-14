@@ -21,14 +21,12 @@ with st.sidebar:
     st.markdown("## 🔍 Filtres")
 
     # Genre
-    st.markdown("### Genre")
     genre_options = df['Gender'].dropna().unique().tolist()
-    selected_genres = st.multiselect("Genre", genre_options, default=genre_options)
+    selected_genres = st.multiselect("Genre", genre_options, default=genre_options, key="genre_filter")
 
     # Appareil utilisé
-    st.markdown("### Appareil")
     device_options = df['Device_Used_for_Shopping'].dropna().unique().tolist()
-    selected_devices = st.multiselect("Appareil utilisé", device_options, default=device_options)
+    selected_devices = st.multiselect("Appareil utilisé", device_options, default=device_options, key="device_filter")
 
 # Application des filtres
 df = df[
