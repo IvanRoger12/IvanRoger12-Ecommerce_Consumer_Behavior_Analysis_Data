@@ -35,10 +35,10 @@ df = df[
     df['Device_Used_for_Shopping'].isin(selected_devices)
 ]
 
-    df['Purchase_Amount'] = df['Purchase_Amount'].replace('[\$,]', '', regex=True).astype(float)
-    df['Time_of_Purchase'] = pd.to_datetime(df['Time_of_Purchase'], errors='coerce')
-    df['Month'] = df['Time_of_Purchase'].dt.strftime('%b %Y')
-    df['YearMonth'] = df['Time_of_Purchase'].dt.to_period('M').astype(str)
+df['Purchase_Amount'] = df['Purchase_Amount'].replace('[\$,]', '', regex=True).astype(float)
+df['Time_of_Purchase'] = pd.to_datetime(df['Time_of_Purchase'], errors='coerce')
+df['Month'] = df['Time_of_Purchase'].dt.strftime('%b %Y')
+df['YearMonth'] = df['Time_of_Purchase'].dt.to_period('M').astype(str)
     return df
 
 with st.spinner("📦 Chargement des données..."):
