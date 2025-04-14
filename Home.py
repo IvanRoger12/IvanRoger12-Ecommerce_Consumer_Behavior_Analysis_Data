@@ -40,14 +40,33 @@ with st.spinner("📦 Chargement des données..."):
     df = load_data()
 
 # KPIs
+
+# Cartes de résumé stylisées
 col1, col2, col3 = st.columns(3)
 with col1:
-    st.metric("Total Achats", f"{df['Purchase_Amount'].sum():,.0f} €")
+    st.markdown(f"""
+    <div style='border: 2px solid #2C3E50; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;'>
+        <div style='font-size: 2rem; font-weight: bold; color: #2C3E50;'>{df['Purchase_Amount'].sum():,.0f} €</div>
+        <div style='color: grey;'>Total des achats</div>
+    </div>
+    """, unsafe_allow_html=True)
+
 with col2:
-    st.metric("Satisfaction Moyenne", f"{df['Customer_Satisfaction'].mean():.1f} / 10")
+    st.markdown(f"""
+    <div style='border: 2px solid #2C3E50; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;'>
+        <div style='font-size: 2rem; font-weight: bold; color: #2C3E50;'>{df['Customer_Satisfaction'].mean():.1f} / 10</div>
+        <div style='color: grey;'>Satisfaction moyenne</div>
+    </div>
+    """, unsafe_allow_html=True)
+
 with col3:
-    loyal_rate = df["Customer_Loyalty_Program_Member"].mean() * 100
-    st.metric("Clients Fidèles", f"{loyal_rate:.1f} %")
+    st.markdown(f"""
+    <div style='border: 2px solid #2C3E50; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;'>
+        <div style='font-size: 2rem; font-weight: bold; color: #2C3E50;'>{df["Customer_Loyalty_Program_Member"].mean() * 100:.1f} %</div>
+        <div style='color: grey;'>Clients Fidèles</div>
+    </div>
+    """, unsafe_allow_html=True)
+
 
 st.markdown("---")
 
@@ -87,3 +106,6 @@ fig3 = px.line(monthly_df, x="Month", y="Purchase_Amount", markers=True,
                title="Achats Mensuels", labels={"Purchase_Amount": "Montant (€)"})
 fig3.update_traces(fill="tozeroy")
 st.plotly_chart(fig3, use_container_width=True)
+
+
+st.markdown('👋 Merci de tester ce dashboard ! Vous pouvez explorer les onglets pour plus d’analyses.')
