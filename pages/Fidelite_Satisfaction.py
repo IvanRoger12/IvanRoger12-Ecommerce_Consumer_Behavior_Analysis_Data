@@ -16,6 +16,9 @@ def load_data():
 
 df = load_data()
 
+with open("styles.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.title("👑 Fidélité & Satisfaction Client")
 
 # KPIs

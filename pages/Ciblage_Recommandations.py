@@ -16,6 +16,9 @@ def load_data():
 
 df = load_data()
 
+with open("styles.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 st.title("🎯 Ciblage & Recommandations")
 
 # Score simple basé sur achat + satisfaction
@@ -96,21 +99,4 @@ st.markdown("---")
 st.markdown("<center>🚀 Des actions concrètes basées sur l'engagement et la satisfaction</center>", unsafe_allow_html=True)
 
 
-st.subheader("🔁 Taux de retour client par segment")
 
-# Calcul du nombre d'achats par client
-client_freq = df.groupby("Customer_ID").size().reset_index(name="Nb_Achats")
-client_freq = client_freq.merge(df[["Customer_ID", "Segment"]].drop_duplicates(), on="Customer_ID")
-
-# Un client fidèle est celui qui a plus d’un achat
-client_freq["Revenu"] = client_freq["Nb_Achats"] > 1
-
-# Taux de retour par segment
-retour_segment = client_freq.groupby("Segment")["Revenu"].mean().reset_index()
-retour_segment["Taux de retour (%)"] = retour_segment["Revenu"] * 100
-
-fig_retour = px.bar(retour_segment, x="Segment", y="Taux de retour (%)", text_auto=True,
-                    labels={"Segment": "Segment", "Taux de retour (%)": "Taux de retour client (%)"},
-                    color="Segment")
-
-st.plotly_chart(fig_retour, use_container_width=True)
