@@ -90,6 +90,21 @@ fig_promo = px.bar(promo_segment, x="Segment", y="Discount_Used", text_auto=True
 st.plotly_chart(fig_promo, use_container_width=True)
 
 st.subheader("⏱️ Délai moyen entre achats par segment")
+
+# Trier et calculer la différence
+df_sorted = df.sort_values(by=["Customer_ID", "Time_of_Purchase"])
+df_sorted["TimeDiff"] = df_sorted.groupby("Customer_ID")["Time_of_Purchase"].diff().dt.days
+
+# Ne garder que les clients avec au moins 2 achats
+df_filtered = df_sorted.dropna(subset=["TimeDiff"])
+
+# Calcul de la moyenne par segment
+moyenne_deltas = df_filtered.groupby("Segment")["TimeDiff"].mean().reset_index()
+moyenne_deltas["TimeDiff"] = moyenne_deltas["TimeDiff"].round(1)
+
+fig_delta = px.bar(moyenne_deltas, x="Segment", y="TimeDiff", text_auto=True,
+                   labels={"TimeDiff": "Délai moyen (jours)"})
+st.plotly_chart(fig_delta, use_container_width=True)
 df_sorted = df.sort_values(["Customer_ID", "Time_of_Purchase"])
 df_sorted["TimeDiff"] = df_sorted.groupby("Customer_ID")["Time_of_Purchase"].diff().dt.days
 moyenne_deltas = df_sorted.groupby("Segment")["TimeDiff"].mean().reset_index()
