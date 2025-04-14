@@ -19,6 +19,21 @@ html, body, [class*="css"] {
     box-shadow: 0 8px 16px rgba(44, 62, 80, 0.15);
 }
 
+/* Animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.kpi-animated {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
 /* Cartes KPI */
 .metric-card {
     background-color: white;
@@ -94,13 +109,4 @@ html, body, [class*="css"] {
     color: #7F8C8D;
     font-size: 12px;
     margin-top: 2rem;
-}
-
-/* Animation */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-.animate-fadeIn {
-    animation: fadeIn 1s ease;
 }

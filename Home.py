@@ -39,12 +39,12 @@ df = df[df["Gender"].isin(genre) & df["Device_Used_for_Shopping"].isin(appareil)
 # Titre de la page
 st.markdown("<div class='title-container'><h1>📊 Tableau de bord – Accueil</h1></div>", unsafe_allow_html=True)
 
-# KPI Cards avec HTML interprété
+# KPI Cards animées
 col1, col2, col3 = st.columns(3)
 
 with col1:
     st.markdown(f'''
-        <div class="metric-card">
+        <div class="metric-card kpi-animated">
             <div class="metric-value">{df['Purchase_Amount'].sum():,.0f} €</div>
             <div class="metric-label">Total des achats</div>
         </div>
@@ -52,7 +52,7 @@ with col1:
 
 with col2:
     st.markdown(f'''
-        <div class="metric-card">
+        <div class="metric-card kpi-animated">
             <div class="metric-value">{df['Customer_Satisfaction'].mean():.1f} / 10</div>
             <div class="metric-label">Satisfaction moyenne</div>
         </div>
@@ -61,7 +61,7 @@ with col2:
 with col3:
     taux_fidelite = df["Customer_Loyalty_Program_Member"].mean() * 100
     st.markdown(f'''
-        <div class="metric-card">
+        <div class="metric-card kpi-animated">
             <div class="metric-value">{taux_fidelite:.1f} %</div>
             <div class="metric-label">Clients Fidèles</div>
         </div>
