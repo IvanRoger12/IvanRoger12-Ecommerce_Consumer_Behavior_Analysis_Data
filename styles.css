@@ -1,0 +1,105 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Poppins', sans-serif;
+}
+
+.main {
+    background-color: #f8f9fd;
+}
+
+/* Titres */
+.title-container {
+    background: linear-gradient(90deg, #2C3E50 0%, #4C6793 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    color: white;
+    box-shadow: 0 8px 16px rgba(44, 62, 80, 0.15);
+}
+
+/* Cartes KPI */
+.metric-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+.metric-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2C3E50;
+}
+.metric-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #7F8C8D;
+    margin-top: 5px;
+}
+
+/* Boîtes de graphique */
+.chart-container {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+}
+
+/* Cartes clients */
+.client-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+.client-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+.segment-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 5px;
+}
+.premium { background-color: #F1C40F; color: #34495E; }
+.standard { background-color: #3498DB; color: white; }
+.basic { background-color: #95A5A6; color: white; }
+.at-risk { background-color: #E74C3C; color: white; }
+
+.loyalty-tier {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.loyalty-icon {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+/* Pied de page */
+.footer {
+    padding: 1.5rem;
+    text-align: center;
+    color: #7F8C8D;
+    font-size: 12px;
+    margin-top: 2rem;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.animate-fadeIn {
+    animation: fadeIn 1s ease;
+}
